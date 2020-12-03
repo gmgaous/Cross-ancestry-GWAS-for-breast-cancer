@@ -1,0 +1,9 @@
+
+module load gcc/6.2.0
+module load vcftools
+module load plink/1.90
+
+tabix -h ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20130502/ALL.chr1.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz 1:109679756-110679756 | gzip -c > rs17024629.genotypes.vcf.gz
+
+plink --vcf rs17024629.genotypes.vcf.gz --out rs17024629.genotypes.chr1 --make-bed  --noweb
+
