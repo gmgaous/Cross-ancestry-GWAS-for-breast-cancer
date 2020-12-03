@@ -1,0 +1,94 @@
+#!/bin/bash
+#6/7/19: meta-analysis to combine BCAC white and meta-analysis results of 5 AAs
+
+#Here is a script for metal for one time meta-analysis
+
+## setting parameter before inputing data
+
+SCHEME   STDERR
+#GENOMICCONTROL ON
+AVERAGEFREQ ON
+MINMAXFREQ ON
+
+##input data
+
+#BCAC-white  data
+
+SEPARATOR TAB # WHITESPACE   # - the default
+MARKER SNP_ID  #varname 
+ALLELE a1 a0 #in BCAC-white a1 is effect allele, a0 is ref allele  ;in Black  ONCO, A1 is test allele
+#test allele A1
+FREQ bcac_onco_icogs_gwas_erneg_eaf_controls #bcac_onco_icogs_gwas_eaf_controls  #A1F_control #A1_freq
+EFFECT bcac_onco_icogs_gwas_erneg_beta #bcac_onco_icogs_gwas_beta
+PVALUE bcac_onco_icogs_gwas_erneg_P1df  #bcac_onco_icogs_gwas_P1df  #Wald.P
+#WEIGHT N
+STDERR bcac_onco_icogs_gwas_erneg_se  # bcac_onco_icogs_gwas_se #SE 
+PROCESS /gpfs/data/huo-lab/BCAC/BCAC_white/Oncoarray/oncoarray_bcac_public_release_oct17_by_chr/oncoarray_bcac_white_chr1.txt  # same file as overall but using dfferent columns
+
+## 5AA meta-analysis results of five AAs (I did not use the meta-analysis results of 5AA, because in  the results, test allele (1st allele)  diffs from the test allele in original 5AAs)
+
+#BCAC data (black)
+SEPARATOR  WHITESPACE   # - the default
+MARKER ID2 #varname 
+ALLELE A1 A0 # in ONCO, A1 is test allele
+FREQ A1F_control #A1_freq
+EFFECT beta
+PVALUE waldp  #Wald.P
+#WEIGHT N
+STDERR se #SE
+PROCESS /gpfs/data/huo-lab/BCAC/Zhaohui/onco/AABC_ONCO_ERn_1-23.filtered.HN_by_chr/AABC_ONCO_ERn_1-23.filtered.HN_chr1.txt
+
+
+#AABC data
+SEPARATOR  WHITESPACE   # - the default
+MARKER SNPID
+ALLELE A1 A2 
+FREQ A1F_control  #A2_freq_control  #Frequency
+EFFECT beta  #Estimate
+PVALUE waldp #P.Wald 
+#WEIGHT N
+STDERR se #SE
+PROCESS /gpfs/data/huo-lab/BCAC/Zhaohui/AABC1M/AABC_AABC1M_ERn_1-23.filtered.HN_by_chr/AABC_AABC1M_ERn_1-23.filtered.HN_chr1.txt
+##test allele: A2
+
+##Ghanna  data
+SEPARATOR  COMMA         # for comma delimited files that are popular in some platforms
+MARKER SNP_ID
+ALLELE alleleB alleleA  #alleleB is the testing allele and alleleA is the reference allele.
+FREQ controls_B_Freq  # we calculated controls_B_Freq, discard  guessing controls_maf as FREQ  #Frequency
+EFFECT frequentist_add_beta_1  #Estimate
+PVALUE frequentist_add_pvalue  #waldp #P.Wald 
+#WEIGHT N
+STDERR frequentist_add_se_1  #se #SE
+PROCESS /gpfs/data/huo-lab/BCAC/Zhaohui/Ghana/ERneg/summary_All_sub_type_add_info_add_ID_Gao/summary_All_sub_type_add_info_chr1_add_ID.csv  ## same name as overall but folder ERneg
+##test allele: A2
+
+##Amber data
+SEPARATOR  WHITESPACE   # - the default
+MARKER SNP_ID
+ALLELE a1 a0 #a1 is testing, same as BCAC
+FREQ freq.a1  # guess freq.a1 is in control  #Frequency
+EFFECT beta.a1  #A2_beta #Estimate
+PVALUE Prob  #waldp #P.Wald
+#WEIGHT N
+STDERR se.a1 #se #SE
+PROCESS /gpfs/data/huo-lab/BCAC/Zhaohui/Amber/erneg_AMBER.assoc_by_chr/erneg_AMBER.assoc_chr1.txt
+##test allele: A2
+
+##ROOT data
+SEPARATOR  TAB   # - the default is space
+MARKER varname
+ALLELE Allele_test Allele_ref  #the 1st allele  is testing
+FREQ RAF_control  # guess RAF_control is effect allele frequency   #Frequency
+EFFECT beta  #A2_beta #Estimate
+PVALUE pvalue  #waldp #P.Wald
+#WEIGHT N
+STDERR se #se #SE
+PROCESS /gpfs/data/huo-lab/ROOT/wgs/GWAS_Tunde/Result_ERneg_simple_IDedit_chr1.txt
+
+ANALYZE HETEROGENEITY
+ 
+QUIT
+
+
+
