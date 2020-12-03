@@ -1,5 +1,5 @@
 #!/bin/bash
-#6/7/29: meta-analysis to combine BCAC white and meta-analysis results of 5 AAs
+#6/7/19: meta-analysis to combine BCAC white and meta-analysis results of 5 AAs
 #Here is a script for metal for one time meta-analysis
 
 ## setting parameter before inputing data
