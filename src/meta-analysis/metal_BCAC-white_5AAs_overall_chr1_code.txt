@@ -1,5 +1,5 @@
 #!/bin/bash
-#6/7/29: meta-analysis to combine BCAC white and meta-analysis results of 5 AAs
+#6/7/19: meta-analysis to combine BCAC white and meta-analysis results of 5 AAs
 #you have to run load gcc/6.2.0 separately, in a different bash file
 
 ## setting parameter before inputing data
