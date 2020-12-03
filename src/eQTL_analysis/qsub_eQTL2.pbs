@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#PBS -N eQTL2 
+### Select the shell you would like the script to execute within
+#PBS -S /bin/bash
+### Inform the scheduler of the expect run time
+#PBS -l walltime=48:00:00
+### Inform the scheduler of the number of CPU cores for your job
+#PBS -l nodes=2:ppn=4
+### Inform the scheduler of the amount of memory for  your job
+#PBS -l mem=8gb
+### Set the destination for output
+#PBS -o ${PBS_JOBNAME}.o${PBS_JOBID}
+#PBS -e ${PBS_JOBNAME}.e${PBS_JOBID}
+###
+
+pathA=/gpfs/data/huo-lab/ROOT/Tunde/eQTL/codes
+pathB=/gpfs/data/huo-lab/TCGA/SNP6_level2/Gao/imputed_data_filtered
+pathC=/gpfs/data/huo-lab/ROOT
+
+module load gcc/6.2.0
+module load R
+
+Rscript $pathA/eQTL_analysis2.R
+

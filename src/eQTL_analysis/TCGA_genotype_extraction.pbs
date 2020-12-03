@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#PBS -N genoSub
+### Select the shell you would like the script to execute within
+#PBS -S /bin/bash
+### Inform the scheduler of the expect run time
+#PBS -l walltime=5:00:00
+### Inform the scheduler of the number of CPU cores for your job
+#PBS -l nodes=1:ppn=4
+### Inform the scheduler of the amount of memory for  your job
+#PBS -l mem=1536mb
+### Set the destination for output
+#PBS -o ${PBS_JOBNAME}.o${PBS_JOBID}
+#PBS -e ${PBS_JOBNAME}.e${PBS_JOBID}
+###
+
+pathA=/gpfs/data/huo-lab/ROOT/Tunde/eQTL
+pathB=/gpfs/data/huo-lab/TCGA/SNP6_level2/Gao/imputed_data_filtered
+pathC=/gpfs/data/huo-lab/ROOT
+
+$pathC/gtool -S --g $pathB/TCGA_chr1.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 109679756 --end 110679756 --og $pathA/TCGA_1p13.3.gen.gz --os $pathA/TCGA_1p13.3.sample
+$pathC/gtool -S --g $pathB/TCGA_chr1.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 214830292 --end 215830292 --og $pathA/TCGA_1q41.gen.gz --os $pathA/TCGA_1q41.sample
+$pathC/gtool -S --g $pathB/TCGA_chr5.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 131301947 --end 132301947 --og $pathA/TCGA_5q31.1.gen.gz --os $pathA/TCGA_5q31.1.sample
+$pathC/gtool -S --g $pathB/TCGA_chr7.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 73859358 --end 74859358 --og $pathA/TCGA_7q11.23.gen.gz --os $pathA/TCGA_7q11.23.sample
+$pathC/gtool -S --g $pathB/TCGA_chr15.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 74647332 --end 76228474 --og $pathA/TCGA_15q24.gen.gz --os $pathA/TCGA_15q24.sample
+$pathC/gtool -S --g $pathB/TCGA_chr15.impute.gen.gz --s $pathA/TCGA_MutSig.sample_v1.sample --start 100407094 --end 101407094 --og $pathA/TCGA_15q26.3.gen.gz --os $pathA/TCGA_15q26.3.sample
+
+cp $pathB/TCGA_MutSig.sample_v1.sample $pathA/TCGA_MutSig.sample_v1.sample
