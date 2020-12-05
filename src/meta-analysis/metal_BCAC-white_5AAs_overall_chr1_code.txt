@@ -86,7 +86,7 @@ PVALUE pvalue  #waldp #P.Wald
 STDERR se #se #SE
 PROCESS /gpfs/data/huo-lab/ROOT/wgs/GWAS_Tunde/Result_overall_simple_IDedit_chr1.txt
 
-ANALYZE 
+ANALYZE HETEROGENEITY
 
  
 QUIT
