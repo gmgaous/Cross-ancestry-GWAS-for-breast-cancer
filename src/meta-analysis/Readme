@@ -1,2 +1,2 @@
 code for meta-analysis using the software metal. 
-Foe example, run the code 
+Foe example, to run meta-analysis for chr1 for overall breast cancer, you can use the code run_metal_BCAC-white_5AAs_overall_chr_1.sh. 
